@@ -44,7 +44,7 @@ public class FillupController {
 		return fillupDao.create(fillupJSON);
 	}
 	
-	@RequestMapping(path="/{1d}", method = RequestMethod.PUT)
+	@RequestMapping(path="/{id}", method = RequestMethod.PUT)
 	public Fillup update(@PathVariable int id, @RequestBody String fillupJSON, HttpServletResponse res) {
 		res.setStatus(204);
 		return fillupDao.update(id, fillupJSON);

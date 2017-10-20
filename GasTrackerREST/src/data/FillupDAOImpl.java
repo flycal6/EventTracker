@@ -47,7 +47,17 @@ public class FillupDAOImpl implements FillupDAO {
 
 	@Override
 	public Fillup update(int id, String fillupJSON) {
-		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Fillup fillupUpdate = em.find(Fillup.class, id);
+			Fillup mappedFillup = mapper.readValue(fillupJSON, Fillup.class);
+			
+			fillupUpdate.setGallons(mappedFillup.getGallons());
+			fillupUpdate.setPrice(mappedFillup.getPrice());
+			fillupUpdate.setOdometer(mappedFillup.getOdometer());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
