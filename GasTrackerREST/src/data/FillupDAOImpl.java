@@ -8,6 +8,9 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.cfg.MapperConfig;
+
 import entities.Fillup;
 
 @Transactional
@@ -25,18 +28,25 @@ public class FillupDAOImpl implements FillupDAO {
 
 	@Override
 	public Fillup show(int id) {
-		// TODO Auto-generated method stub
+		return em.find(Fillup.class, id);
+	}
+
+	@Override
+	public Fillup create(String fillupJSON) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Fillup mappedFillup = mapper.readValue(fillupJSON, Fillup.class);
+			em.persist(mappedFillup);
+			em.flush();
+			return mappedFillup;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
-	public Fillup create(String quizJSON) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Fillup update(int id, String quizJSON) {
+	public Fillup update(int id, String fillupJSON) {
 		// TODO Auto-generated method stub
 		return null;
 	}
