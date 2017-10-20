@@ -63,7 +63,11 @@ public class FillupDAOImpl implements FillupDAO {
 
 	@Override
 	public boolean destroy(int id) {
-		// TODO Auto-generated method stub
+		try {
+			em.remove(em.find(Fillup.class, id));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 }
